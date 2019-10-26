@@ -1,0 +1,559 @@
+\documentclass{report}
+
+% --- LES PAQUETS
+
+\usepackage[utf8]{inputenc} % Français
+\usepackage[T1]{fontenc} % Français
+
+\usepackage{amsmath} % Formules mathématiques, ex: DeclareMathOperator
+\usepackage{amssymb} % Symboles spéciaux, ex: square
+\usepackage{amsthm} % Théorèmes, ex: theoremstyle
+\usepackage{enumerate} % Options sur les listes, ex: [(i)]
+\usepackage{gensymb} % Quelques unités, ex: degree
+\usepackage{graphicx} % Insère des graphiques
+\usepackage{hyperref} % Permet les hyperliens
+\usepackage[left=2.25cm,right=2.25cm,top=2.25cm,bottom=2.25cm]{geometry} % Mise en page
+\usepackage{xcolor} % Gère les couleurs, ex: fcolorbox
+\usepackage{diagbox} % Perlet de faire des diagonales dans les tableaux
+\usepackage{mathrsfs} % Police lettres attachées
+\usepackage{pifont} % check et croix
+\usepackage{tcolorbox} % Encadrage arrondi et couleurs
+\usepackage{array}
+
+% --- LES THÉORÈMES
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section] % Définition
+\newtheorem{exemple}{Exemple}[section] % Exemple
+\newtheorem{exercice}{Exercice}[section] % Exercice
+\newtheorem{lem}{Lemme}[section] % Exercice
+\newtheorem{notation}{Notation}[section] % Théorème 
+\newtheorem{prop}{Proposition}[section] % Proposition
+\newtheorem{coro}{Corollaire}[section] % Corollaire
+\newtheorem{remarque}{Remarque}[section] % Remarque
+\newtheorem{theorem}{Théorème}[section] % Théorème 
+
+% --- NOUVELLES COMMANDES
+
+% --- ENVIRONNEMENTS
+
+% Majeurs
+
+\newcommand{\defi}[1]{\begin{tcolorbox}[boxrule=1.85pt,arc=1ex, colback=cbdefi, colframe=cfdefi, left=3pt, right=3pt, top=3pt, bottom=2pt]\begin{definition}#1\end{definition}\end{tcolorbox}} % Définitions
+
+\newcommand{\nota}[1]{\begin{tcolorbox}[boxrule=1.85pt,arc=1ex, colback=cbnota, colframe=cfnota, left=3pt, right=3pt, top=3pt, bottom=2pt]\begin{notation}#1\end{notation}\end{tcolorbox}} % Notations
+
+\newcommand{\pro}[1]{\begin{tcolorbox}[boxrule=1.85pt,arc=1ex, colback=cbpro, colframe=cfpro, left=3pt, right=3pt, top=3pt, bottom=2pt]\begin{prop}#1\end{prop}\end{tcolorbox}} % Propositions
+
+\newcommand{\lemme}[1]{\begin{tcolorbox}[boxrule=1.85pt,arc=1ex, colback=cblemme, colframe=cflemme, left=3pt, right=3pt, top=3pt, bottom=2pt]\begin{lem}#1\end{lem}\end{tcolorbox}} % Lemmes
+
+\newcommand{\theo}[1]{\begin{tcolorbox}[boxrule=1.85pt,arc=1ex, colback=cbtheo, colframe=cftheo, left=3pt, right=3pt, top=3pt, bottom=2pt]\begin{theorem}#1\end{theorem}\end{tcolorbox}} % Théorèmes
+
+\newcommand{\cor}[1]{\begin{tcolorbox}[boxrule=1.85pt,arc=1ex, colback=cbcor, colframe=cfcor, left=3pt, right=3pt, top=3pt, bottom=2pt]\begin{coro}#1\end{coro}\end{tcolorbox}} % Corollaires
+
+% Mineurs
+
+\newcommand{\ex}[1]{\begin{exemple}#1\end{exemple}} % Exemple
+
+\newcommand{\exo}[1]{\begin{exercice}#1\end{exercice}} % Exercice
+
+\newcommand{\preuve}[1]{\begin{proof}#1\end{proof}} % Preuve
+
+\newcommand{\rem}[1]{\begin{remarque}#1\end{remarque}} % Remarque
+
+\newcommand{\rems}[1]{\begin{remarque}\begin{itemize}#1\end{itemize}\end{remarque}} % Remarques multiples
+
+% Notation mathématiques
+
+\newcommand{\C}{\mathbf{C}} % Ensemble des complexes
+\newcommand{\chaine}[1]{\[
+\begin{array}{r c l}
+#1
+\end{array}
+\]}
+\newcommand{\cjg}[1]{\overline{#1}}
+\newcommand{\cmark}{\textcolor{brown}{\ding{51}}} % check
+\newcommand{\contient}{\supseteq} % Contenance
+\newcommand{\doubleimp}[2]{\begin{itemize}\item[($\Rightarrow$)] #1 \item[($\Leftarrow$)] #2 \end{itemize}} % Double implication
+\newcommand{\doubleimpi}[2]{\begin{itemize}\item[($\Leftarrow$)] #1 \item[($\Rightarrow$)] #2 \end{itemize}} % Double implication inverse
+\newcommand{\dt}{\mathscr{D}}
+\newcommand{\eqv}{\Longleftrightarrow}
+\newcommand{\estdans}{\subseteq} % Appartenance
+\newcommand{\fons}[5]{$\begin{array}{lrcl}
+#1~: & #2 & \longrightarrow & #3 \\
+    & #4 & \longmapsto & #5 \end{array}$} % Fonction standard
+    \newcommand{\fonsn}[4]{$\begin{array}{lrcl}
+& #1 & \longrightarrow & #2 \\
+    & #3 & \longmapsto & #4 \end{array}$} % Fonction standard sans nom
+\newcommand{\fone}[3]{$#1: #2\to #3$} % Fonction ensembliste
+\newcommand{\fonen}[2]{$#1\longrightarrow #2$} % Fonction ensembliste sans nom
+\newcommand{\fonl}[5]{$#1: #2\to #3,#4\mapsto #5$} % Fonction ligne
+\newcommand{\imp}{\Longrightarrow} % Implication
+\newcommand{\Lim}{\lim\limits_} % Limite
+\newcommand{\limc}[2]{\lim\limits_{#1\to #2}} % Limite
+\newcommand{\la}{\left|} % Valeur absolue gauche
+\newcommand{\lc}{\left[} % Crochet gauche
+\newcommand{\lint}{[\![} % [[
+\newcommand{\lp}{\left(} % Parenthèse gauche
+\newcommand{\N}{\mathbf{N}} % Ensemble des naturels
+\newcommand{\norm}[1]{\left\parallel #1 \right\parallel}
+\newcommand{\pc}{\mathscr{P}} % Plan complexe
+\newcommand{\plan}{\mathscr{P}} % Plan
+\newcommand{\poly}{\mathbf{C}[z]} % Ensemble des polynômes
+\newcommand{\polyd}[1]{\mathbf{C}_{#1}[z]} % Ensemble des polynômes
+\newcommand{\produit}[2]{\prod\limits_{#1}^{#2}} % Somme
+\newcommand{\programme}{\textcolor{black}{$\circledast$ }} % Au programme
+\newcommand{\Q}{\mathbf{Q}} % Ensemble des rationnels
+\newcommand{\R}{\mathbf{R}} % Ensemble des réels
+\newcommand{\Rp}{\mathbf{R}} % Ensemble des réels
+\newcommand{\Rm}{\mathbf{R_{-}}} 
+\newcommand{\Ret}{\mathbf{R^*}}
+\newcommand{\Rep}{\mathbf{R^*_{+}}} 
+\newcommand{\Rem}{\mathbf{R^*_{-}}} 
+
+\newcommand{\ra}{\right|} % Valeur absolue droite
+\newcommand{\rc}{\right]} % Crochet droit
+\newcommand{\rep}{\mathscr{R}} % repère
+\newcommand{\rint}{]\! ]} % [[
+\newcommand{\rp}{\right)} % Parenthèse droite
+\newcommand{\sph}{\mathscr{S}}
+\newcommand{\sauf}[1]{\backslash\left\{#1\right\}}
+\newcommand{\somme}[2]{\sum\limits_{#1}^{#2}} % Somme
+\newcommand{\suite}[1]{$(#1_n)_{n\in\N}$} % Définition suite
+\newcommand{\suiten}[1]{$(#1_n)_{n\in\N^*}$} % Définition suite commençant à 0
+\newcommand{\suiteq}[2]{$(#1_n)_{n\in#2}$} % Définition suite commençant n'importe où.
+\newcommand{\sys}[1]{\[
+\left\{
+\begin{array}{r c l}
+#1
+\end{array}
+\right.
+\]}
+\newcommand{\U}{\mathbf{U}} % Ensemble des naturels
+\newcommand{\vr}[1]{\overrightarrow{#1}}
+\newcommand{\vre}[3]{\parent{\begin{matrix} #1 \\ #2 \\ #3 \end{matrix}}} % vecteur c
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}} % croix
+\newcommand{\Z}{\mathbf{Z}} % Ensemble des entiers
+
+\newcommand{\intent}[1]{[\![#1]\!]}
+
+% Délimitations
+
+\newcommand{\abs}[1]{\left|#1\right|} % ||
+\newcommand{\cro}[1]{\left[#1\right]} % []
+\newcommand{\ens}[1]{\left\{#1\right\}} % {}
+\newcommand{\parent}[1]{\left(#1\right)} % ()
+\newcommand{\spoiler}[1]{$\blacktriangleright$\textcolor{white}{ #1 }$\blacktriangleleft$}
+
+% Expressions
+
+\newcommand{\cad}{c'est-à-dire } % C'est-à-dire
+\newcommand{\ta}{théorème-en-acte }
+\newcommand{\tas}{théorèmes-en-acte }
+\newcommand{\ie}{\emph{i.e} } % id est
+\newcommand{\iex}{il existe } % il existe
+\newcommand{\pt}{pour tout } % C'est-à-dire
+\newcommand{\ssi}{si et seulement si } % SSi
+\newcommand{\tq}{tel que } % SSi
+\newcommand{\gug}{ « } % Guillement gauche
+\newcommand{\gud}{ » } % Guillement droit
+\newcolumntype{M}[1]{>{\raggedright}m{#1}}
+
+% --- RENOUVELLEMENT DE COMMANDES
+
+\renewcommand{\abstractname}{Avant-propos}
+\renewcommand{\appendixname}{Annexe}
+\renewcommand{\subset}{\subseteq}
+\renewcommand{\chaptername}{Chapitre}
+\renewcommand{\contentsname}{Sommaire}
+\renewcommand{\partname}{Partie}
+\renewcommand*{\proofname}{Preuve}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\intg}[3]{\int_{#1}^{#2} #3 \, \mathrm{d}x}
+\newcommand{\intgv}[4]{\int_{#1}^{#2} #3 \, \mathrm{d}#4}
+
+% --- LES DÉFINITIONS
+
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\dis}{d}
+\DeclareMathOperator{\I}{I}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\re}{Re}
+
+% Couleurs
+
+\definecolor{cbdefi}{RGB}{248,226,255} % Définition fond
+\definecolor{cfdefi}{RGB}{169,160,172} % Définition bordure
+
+\definecolor{cbnota}{RGB}{224,220,255} % Notation fond
+\definecolor{cfnota}{RGB}{146,145,182} % Notation bordure
+
+\definecolor{cbpro}{RGB}{235,235,235} % Proposition fond
+\definecolor{cfpro}{RGB}{157,157,157} % Proposition bordure
+
+\definecolor{cblemme}{RGB}{255,237,188} % Lemme fond
+\definecolor{cflemme}{RGB}{182,149,116} % Lemme bordure
+
+\definecolor{cbtheo}{RGB}{255,210,210} % Théorème fond
+\definecolor{cftheo}{RGB}{157,129,129} % Théorème bordure
+
+\definecolor{cbcor}{RGB}{255,210,180} % Corollaire fond
+\definecolor{cfcor}{RGB}{157,139,127} % Corollaire bordure
+
+\definecolor{bpc}{RGB}{0,0,0} % Bonne procédure
+\definecolor{mpc}{RGB}{0,0,0} % Mauvaise procédure
+
+% --- SIMPLIFICATIONS LATEX
+
+\newcommand{\tend}{\\ \hline}
+
+% --- EN-TÊTE
+
+\title{Analyse de productions d'élèves mettant en jeu le concept de calcul littéral}
+\author{ \textsc{Thenon} Oscar, \textsc{Duboux} Cécile, \textsc{Couet} Romain}
+\date{21/10/2019}
+
+\begin{document}
+
+\maketitle
+
+\section*{Analyse \textit{a priori}}
+
+
+Nous analysons \textit{a priori} les deux exercices présentés en s'interrogeant sur les procédures que pourraient utiliser des élèves en situation. Notons que de tels élèves sont supposés être en cycle 4, cycle d'apprentissage du calcul littéral.
+
+Pour chaque procédure envisagée, nous la colorerons en vert pour signaler qu'elle mène au bon résultat, sinon en rose.
+
+\subsection*{Exercice 1}
+
+Nous avons envisagé sept procédures pour résoudre le premier exercice consistant à simplifier et réduire des expressions littérales dans le temps qui nous était imparti. 
+
+\begin{description}
+
+\item[\textcolor{bpc}{Procédure 1.1}] Il s'agit de calculer chaque terme séparément, de factoriser $a$ et enfin d'additionner les coefficients correspondants.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: tous.
+\item \textit{Exemple} pour A~: $4a-6a=(4-6)\times a=-2a$.
+\item \textit{Exemple} pour F~: $5\times a\times 2a = 10\times a\times a = 10a^2$.
+\end{itemize}
+
+\item[\textcolor{bpc}{Procédure 1.2}] Il s'agit de traduire la forme $ka$ comme «~$k$ répétitions de l'objet $a$~». On ajoute alors plusieurs quantités de l'objet $a$. A noter que cette procédure fait sauter une étape intermédiaire par rapport à la première.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: A, C.
+\item \textit{Exemple} pour A~: $4a-6a=-2$ (4 répétitions de l'objet $a$ moins 6 répétitions de ce même objet).
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 1.3}] Il s'agit d'additionner les coefficients et les lettres. 
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: A. 
+\item \textit{Exemple} pour A~: $4a-6a=(4-6)\times(a-a)=0$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 1.4}] Il s'agit d'additionner tous les nombres, peu importe qu'ils soient multipliés par $a$ ou non.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~:  B, E.
+\item \textit{Exemple} pour B~: $4\times a+1=4a+1=5a$.
+\item \textit{Exemple} pour E~: $9+8a=17a$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 1.5}] Il s'agit d'appliquer une distributivité malgré l'absence de parenthèse.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~:  B, E.
+\item \textit{Exemple} pour B~: $4\times a+1=4(a+1)=4\times a + 4\times 1 = 4a+4$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 1.6}] Il s'agit, lorsque plusieurs $a$ sont multipliés, de considérer que le résultat est la même quantité~$a$.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~:  F.
+\item \textit{Exemple} pour F~: $5\times a \times 2a = (5\times 2)\times a = 10a$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 1.7}] Il s'agit d'effectuer la multiplication de plusieurs termes dont l'un contient $a$ comme une~addition.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~:  D, F.
+\item \textit{Exemple} pour D~: $7a\times 3 = 10a$.
+\item \textit{Exemple} pour F~: $5\times a \times 2a = 5\times 3a = 15a$ ou encore $5\times a \times 2a=5\times 3a=8a$.
+\end{itemize}
+\end{description}
+
+\subsection*{Exercice 2}
+Nous avons envisagé cinq procédures concernant le second exercice qui traite en plus de la distributivité.
+
+\begin{description}
+
+\item[\textcolor{bpc}{Procédure 2.1}] Il s'agit de distribuer puis réduire en utilisant la méthode proposée dans le cours (\textit{annexe A, II - Propriété~: La distributivité}).
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: F, G.
+\item \textit{Exemple} pour F~: $a(a-9)=a\times a + a\times (-9)=a^2-9a$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 2.2}] Il s'agit de réduire en ignorant les parenthèses.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: F, G.
+\item \textit{Exemple} pour G~: $2(a+1)=2\times a +1 = 2a+1$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 2.3}] Il s'agit de distribuer en additionnant les termes.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: F, G.
+\item \textit{Exemple} pour F~: $a(a-9)=(a+a)+(a-9)=3a-9$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 2.4}] Il s'agit de développer selon la technique du cours mais sans réduction. La consigne est alors à moitié respectée.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: F, G.
+\item \textit{Exemple} pour F~: $a(a-9)=a\times a - 9\times a$ ou encore $a(a-9)=a\times a - 9a$.
+\end{itemize}
+
+\item[\textcolor{mpc}{Procédure 2.5}] Il s'agit de traduire l'absence du signe multiplicatif comme une addition et de calculer en conséquence.
+\begin{itemize}
+\item \textit{Peut s'appliquer à}~: F, G.
+\item \textit{Exemple} pour F~: $a(a-9)=a+(a-9)=a+a-9=2a-9$.
+\item \textit{Exemple} pour G~: $2(a+1)=2+(a+1)=2+a+1=3+a$.
+
+\end{itemize}
+
+\end{description}
+
+\newpage
+
+\section*{Analyse \textit{a posteriori}}
+
+\subsection*{Procédures utilisées dans les copies}
+
+Nous résumons dans le tableau ci-dessous les procédures utilisées dans les copies des élèves qui correspondent à celles que nous avons envisagées. Les procédures utilisées par les élèves mais que nous n'avons pas envisagées seront numérotées A1, A2 et ainsi de suite. Elles seront commentées ultérieurement. Nous abrégeons «~Procédure~» par «~P~».
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Exercice & Copie no. 1 & Copie no. 2 & Copie no. 3 \\ \hline  \hline
+1.A & \textcolor{black}{A1} & P1.1 ou P1.2 & P1.1 ou P1.2 \\ \hline
+1.B & \textcolor{black}{A2} & P1.4 & P1.4 \\ \hline
+1.C & P1.1 ou P1.2 & P1.1 ou P1.2 & P1.1 ou P1.2  \\ \hline
+1.D & P1.1 & P1.1 & P1.1 \\ \hline
+1.E &  & P1.4 avec erreur d'addition & P1.4 \\ \hline
+1.F & P1.6 & P1.1 & P1.6 \\ \hline \hline
+2.F & \textcolor{black}{A3} & \textcolor{black}{A4} & \textcolor{black}{A4} \\ \hline
+2.G & P2.1 & P2.1 + P1.4 & \textcolor{black}{A5} + P1.4 \\ \hline
+\end{tabular}
+\caption{Table des procédures utilisées par les élèves dans les trois copies.}
+\end{center}
+\end{table}
+
+Faisons deux remarques avant de rentrer dans le vif du sujet.
+
+\begin{itemize}
+\item En l'absence d'étape intermédiaire dans l'exercice 1, il parait difficile de trancher entre l'utilisation des procédures 1.1 et 1.2.
+
+\item Il est intéressant de constater que dans la troisième copie, l'élève a changé l'écriture de «~a~» minuscule pour «~A~» majuscule. Nous pouvons soumettre comme hypothèse qu'il n'est pas encore suffisament au fait des conventions mathématiques pour savoir qu'on ne peut interchanger deux caractères typographiques différents de manière générale lorsqu'ils désignent un objet mathématique (à moins d'avoir montré préalablement leur égalité). Ainsi les caractères typographiques «~$a$~», «~$A$~» et «~$\mathscr{A}$~» ne sont en général pas interchangeables même s'ils désignent tous la même lettre.
+\end{itemize}
+
+Commentons à présent les procédures que nous n'avions pas envisagées.
+
+\begin{description}
+\item[\textcolor{black}{A1}] Ici l'élève semble avoir additionné les coefficients de $a$ en valeur absolue. Nous pouvons soumettre comme hyptohèse que la présence du $a$ a coupé la procédure consistant à tenir compte de la priorité des opérations. Il aurait alors effectué l'opération ainsi~: $4a-6a=6a-4a=2a$. A noter que cela montre que la présence de la variable littérale $a$ constitue une variable didactique très importante.
+
+\item[\textcolor{black}{A2}] Ici nous proposons l'hypothèse qu'en voyant la multiplication $4\times a$, l'élève a pu se dire que la multiplication devait aussi porter sur le second terme $1$. Selon cette hypothèse, l'élève aurait ainsi effectué une distributivité~: $4\times a+1=2(2a+1)=4a+2$. Nous ne proposons toutefois pas d'explication sur la raison d'être du facteur 2 devant la parenthèse alors que l'opération $4\times a+1=4(a+1)=4a+4$ est également cohérente avec cette hypothèse.
+
+\item[\textcolor{black}{A3}] Ici l'élève a d'abord distribué \textit{via} la technique du cours correctement, puis a simplifié $a\times a$ en $a$ selon la procédure 1.6. Nous pouvons constater qu'il s'est arrêté là et n'a pas simplifié son résultat $a-9a$ alors qu'il a montré dans l'exercice 1.A qu'il effectuait ce genre d'opérations en valeur absolue (voir procédure A1). Nous aurions donc pu nous attendre à cette suite de la part de cet élève~: $a-9a=9a-a=8a$. Nous proposons comme hypothèse que le facteur devant $a$ est implicitement $1$ mais n'est toutefois pas écrit explicitement, l'absence du nombre écrit a pu bloquer l'utilisation de cette procédure.
+
+\item[\textcolor{black}{A4}] Ici il est très intéressant de constater que les élèves des copies 2 et 3 ont abouti au même résultat $-9a^2$ mais sans le même cheminement. Nous proposons toutefois une même hypothèse pour ces deux élèves~: ils ont pu considérer qu'un grand exposant l'emporte sur un plus petit. Ainsi, $a^2$ l'emporterait sur $a^1$, qui lui-même l'emporterait sur $a^0$. D'où l'élève de la copie 2 simplifie $a^2-9a$ en $-9a^2$ ($a^2$ «~absorbe~» $-9a$) et l'élève de la copie 3 simplifie $A^2-9$ en $-9A^2$ ($A^2$ «~absorbe~» $-9$). Nous irons plus en profondeur sur cette notion d'absorption dans la partie sur les théorèmes-en-acte.
+
+\item[\textcolor{black}{A5}] Ici l'élève a semble-t-il interprété les parenthèses comme une multiplication mais n'affectant que le premier terme. Il aurait ainsi effectué l'opération $2(a+1)=2\times a + 1$ puis termine son calcul en utilisant la procédure 1.4~: $2\times a +1=3a$. 
+\end{description}
+
+\subsection*{Théorèmes-en-acte utilisés par les élèves}
+
+Afin de clarifier le concept de théorème-en-acte, intéressons-nous d'abord au concept de \textit{schème} explicité par Gérard Vergnaud \footnote{G. \textsc{Vergnaud} \textit{et al}. «~\textsc{iv}. La psychologie de l'éducation~», in~: \textit{Les sciences de l’éducation}. La Découverte, 2012, pp. 43-58.}. Il le définit comme «~activité organisée que développe [l'élève] face à une certaine classe de situations~». Ce sont pour lui des structures fonctionnelles dynamiques, en ce qu'elles permettent de répondre à des situations. Ce sont également des structures invariantes, en ce qu'elles sont stables. C'est-à-dire que le sujet appliquera systématiquement le même schème lorsqu'il est confronté à un problème où il pense qu'il peut s'appliquer.
+
+Un tel schème est «~structuré par des invariants opératoires, c'est-à-dire des connaissances pertinentes pour sélectionner l'information et la traiter (concepts-en-acte et théorèmes-en-acte)~». Un schème, qui est une méthode organisée invariante, est donc pour Vergnaud construite entre autres par des propositions que l'apprenant a sélectionnées et qu'il tient pour vraies~: ce sont les \textit{\tas}. Il faut donc bien noter d'une part qu'un théorème-en-acte s'inscrit dans une démarche conceptuelle plus globale de l'apprenant qui est le schème, et d'autre  part que d'après Vergnaud, les théorèmes-en-acte ne sont pas les seules briques qui établissent le schème~: on y trouve aussi ce qu'il nomme des concepts-en-acte.
+
+La détermination des \tas des élèves pour une certaine classe de problèmes constitue donc un enjeu d'apprentissage important~: cela peut en effet permettre d'éclairer certaines erreurs et de mettre en place une déconstruction raisonnée de ces propositions tenues pour vraies par les élèves pouvant mener à appliquer des schèmes conduisant à des réponses erronnées.
+
+Nous allons à présent envisager des potentiels \tas qu'ont pu utiliser les élèves des copies présentées. Nous abrégerons pour la suite «~théorème-en-acte~» par «~TA~». Dans une optique constructiviste, nous avons décidé de ne lister que les \tas conduisant à une réponse erronnée (que nous pourrons étudier dans la suite de notre analyse) même si nous pouvons également mettre en exergue des \tas justes.
+
+\begin{description}
+
+\item[TA 1] \textit{Soit $a,k$ des relatifs et $n$ naturel. Alors $a^n+ka^n=ka^n$}.
+
+Ce \ta peut être extrapolé de l'exercice 2.F notamment et semble utilisé par les élèves des copies 2 et 3, en plus du \ta 2 décrit ci-dessous. Principalement, il s'agit de traduire l'absence de coefficient écrit devant la lettre par un 0 lorsqu'on effectue une addition.
+
+\item[TA 2] \textit{Soit $a,q,r$ des relatifs et $m,n$ des naturels tels que $n\ge m$. Alors $qa^n+ra^m=(q+r)a^n$}.
+
+Ce \ta correspond à ce que nous avons brièvement décrit précédemment comme l'opération d'absorption~: les «~grandes~» puissances de $a$ absorbent les «~petites~». A la lumière de ce \ta nous pouvons expliquer les réponses de l'exercice 1.B où les élèves des copies 2 et 3 ont répondu $4a+1=5a$, mais également de l'exercice 1.E et enfin les exercices 2.G et 2.F. L'exercice 2.F est intéressant à cet égard puisque les élèves de ces mêmes copies ont répondu pareillement $-9a^2$ mais sans les mêmes étapes intermédiaires. Cela peut s'expliquer car via ce \ta il y a en effet plusieurs manières de parvenir à cette réponse. Par exemple par $a^2-9a$ (copie 2). Notons qu'ici le \ta 1 est également appliqué, ce qui explique pourquoi l'élève n'a pas répondu $-8a^2$ qui serait la réponse d'un élève utilisant uniquement le \ta 2. L'élève de la copie 3 est lui arrivé à $-9a^2$ en calculant $a^2-9$, nous constatons que lui aussi a utilisé le \ta 1. Voici deux autres manières de parvenir à $-9a^2$ en utilisant uniquement ce théorème~: $-10a^2+1$ ou encore $-7a^2-2a$.
+
+\item[TA 3] \textit{Soit $a$ un relatif. Alors $a\times ...\times a =a $, avec un nombre arbitraire de répétitions de la lettre $a$.}
+
+Ce \ta semble utilisé par l'élève de la copie 1 dans les exercices 1.F et 2.F. Il s'agit pour l'essentiel de considérer qu'une multiplication de $a$ avec lui-même ne change pas sa nature. Nous y reviendrons dans l'interprétation.
+
+\item[TA 4] \textit{Soit $a,b,c$ trois relatifs. Alors $a(b+c)=a\times b + c$.}
+
+Ce \ta semble être utilisé par l'élève de la copie 3 dans les questions 2.F et 2.G. Il consiste à traduire le parenthésage comme une multiplication n'affectant que le premier terme.
+
+\item[TA 5] \textit{Soit $a,q,r$ trois relatifs. Alors $qa-ra=ra-qa$.}
+
+Ce \ta semble être utilisé par l'élève de la copie 1 dans l'exercice 1.A. Il consiste à passer outre les règles de prioriété. A noter, et c'est essentiel pour l'application de ce \ta, que $a$ doit rester écrit littéralement alors que $q$ et $r$ doivent être écrits numériquement.
+
+\end{description}
+
+Confrontons ces \tas que nous proposons avec les réponses effectives des élèves. Dans le tableau suivant nous indiquons l'utilisation des \tas dans chaque exercice. Si l'élève a donné une bonne réponse et une démarche correcte, nous laissons la cellule vide (en effet, les \tas que nous avons proposés ne sont pertinents que pour analyser les démarches erronnées). Nous signalerons également par le sigle~$\otimes$ si l'élève adopte une démarche erronnée mais qui ne peut selon nous être éclairée par l'un de ces \tas.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Exercice & Copie no. 1 & Copie no. 2 & Copie no. 3 \\ \hline  \hline
+1.A & TA 5 &  &  \\ \hline
+1.B & $\otimes$ & TA 2 & TA 2 \\ \hline
+1.C &  &  &   \\ \hline
+1.D &  &  &  \\ \hline
+1.E &  & TA 2 & TA 2 \\ \hline
+1.F & TA 3 &  &  \\ \hline \hline
+2.F & TA 3 & TA 2 + TA 1 & TA 4 + TA 2 + TA 1 \\ \hline
+2.G &  & TA 2 & TA 4 + TA 2 \\ \hline
+\end{tabular}
+\caption{Table des \tas utilisés par les élèves dans les trois copies.}
+\end{center}
+\end{table}
+
+Nous pouvons constater deux choses à partir de ce tableau.
+
+\begin{enumerate}
+    \item La stabilité des \tas. En effet, le TA 2 par exemple semble utilisé dans la moitié des exercices par les élèves des copies 2 et 3. Le TA 3 utilisé par l'élève de la copie 1 est utilisé deux fois et le TA 4 est utilisé deux fois par l'élève de la copie 3. Cela est cohérent avec la notion intrinsèque de théorème-en-acte~: il fait partie intégrante d'un schéma opératoire stable et est utilisé dans des situations appartenant à la même classe (ici la classe des problèmes faisant intervenir le calcul littéral). Il est donc cohérent que les mêmes théorèmes-en-acte soient utilisés souvent par les mêmes élèves.
+    \item Si les élèves des copies 2 et 3 semblent utiliser de manière récurrente le TA 2, il ne semble pas du tout utilisé par l'élève de la copie 1. En outre, ce dernier utilise plusieurs fois le TA 3 qui n'est par contre pas du tout utilisé par les autres. Nous proposons comme explication que ces deux théorèmes-en-acte (2 et 3) sont en réalité incompatibles et même opposés. En effet, un élève qui utilise le TA 2 et qui considère donc que les grandes puissances de $a$ l'emportent sur les petites trouvera probablement très incohérent la proposition $3a^2 = 3a$ par exemple, ce qu'au contraire trouvera probablement très logique un élève utilisant le TA 3 qui considère que les petites puissances de $a$ absorbent les plus grandes.
+\end{enumerate}
+
+Les théorèmes-en-acte sont donc stables d'une part et les théorèmes-en-acte d'un même élève ne se contredisent pas d'autre part. Notons enfin que deux théorèmes-en-acte d'un même élève peuvent effectivement se contredire, mais l'élève n'en aura alors probablement pas conscience~: nous pouvons imaginer qu'un enseignant le remarquant pourrait alors mettre au jour cet écart chez l'élève afin qu'il se crée une rupture et \textit{in fine} une mise à jour de ses schèmes. Par exemple en proposant à cet élève une situation où ces deux \tas rentreraient en conflit.
+
+\section*{Origines des \tas}
+
+Comme le rapportent Jean-Pierre Astolfi et Michel Develay\footnote{\textsc{J-P Astolfi, M Develay}. \textit{La didactique des sciences}. 7e édition. puf, 2017, p36-37}, plusieurs orientations, se nourissant de sciences multiples, aident à penser un large panel des multiples causes des représentations du sujet. Les trois premières évoquées sont les suivantes.
+
+\begin{itemize}
+    \item Une orientation psycho-génétique, se nourissant des travaux de Piaget sur la psychologie génétique.
+    \item Une orientation historique, notamment de l'histoire spécifique de la discipline concernée, en s'interrogeant principalement sur les ruptures épistémologiques de cette discipline. Ces dernières peuvent en effet se traduire en obstacles épistémologiques pour les élèves (bien que ce ne soit pas systématique et qu'il convient de rester prudent sur de telles correspondances).
+    \item Enfin, une orientation sociologique, en ce qu'il y a des intersections non vides entre les représentations de l'apprenant en particulier et celles de son groupe social en général.
+\end{itemize}
+
+Nous décidons ici d'analyser les \tas cités auparavant en s'éclairant d'une approche historique\footnote{\textsc{C Houzel}. «~Équations algébriques~», in~: \textit{Mathématiques en méditerranée}. Édisud, 1988, pp 58-67} d'un des aspects du concept en jeu, à savoir le symbolisme du calcul littéral.
+
+\subsection*{Une brève histoire du calcul littéral sous l'angle du symbolisme}
+
+En mathématiques sumériennes, c'est-à-dire les plus anciennes connues, la notion de symbolisme n'existe pas. Les procédures sont textuellement décrites et les quantités en jeu sont systématiquement chiffrées. Les inconnues sont ne sont pas représentées. En guise d'exemple, voici une représentation et une traduction\footnote{\textsc{J Friberg}. \textit{A remarkable collection of babylonian mathematical texts}. Springer, 2007, pp 407-414} de la tablette DPA 38, une tablette d'origine akkadienne où intervient un problème de division.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.6]{dpa38}
+\end{center}
+\caption{DPA 38~: une tablette akkadienne sur un exercice de division}
+\end{figure}
+
+
+Dans l'antiquité grecque, on voit apparaître des lettres pour identifier des grandeurs. Ainsi, dans les \textit{Éléments} d'Euclide, les nombres sont indiscernables des longueurs de «~droites~», ce terme étant défini par Euclide au début du livre I~: «~une ligne droite est celle qui est placée de manière égale par rapport aux points qui sont sur elle~»\footnote{Les traductions sont d'après \textsc{B Vitrac}, 1990 pour le livre I et 1994 pour le livre VII}. Ainsi dans l'exposition de la proposition 2 du livre VII figure~: «~soient $AB$, $CD$ les deux nombres non premiers entre eux donnés [...]~». $AB$ est donc une grandeur littérale et identifiée à la longueur du segment $[AB]$ dans nos notations modernes.
+
+Le statut de la lettre en mathématiques évoluera ensuite drastiquement en même temps que le développement de l'algèbre, d'abord par les mathématiciens du monde arabe, dont l'un des pères fondateurs est al-Khuwārizmī (780-850). A cette époque les mathématiciens cherchaient principalement à résoudre et catégoriser les équations de degré au plus 2 (bien qu'il y ait eu des excursions dans le degré 3 voire 4 mais sans systématisation, par exemple par Alhazen). Il n'y a pas encore là de symbolisme, tout est exprimé textuellement. En revanche il y a une identification et une distinction nette entre les connues et les inconnues qui sont nommées.
+
+Les mathématiciens occidentaux ont ensuite été initiés à l'algèbre à travers des traductions latines de traités arabes. Les premières traces d'abréviations notables se trouvent dans le premier livre d'algèbre imprimé, la \textit{Summa de arithmetica} de Luca Pacioli publié en 1494. Parmi ces abbréviations, l'inconnue est souvent abrégée «~$R$~» (vient du terme arabe signifiant «~racine~»), son carré «~$z$~» (les problèmes relevaient surtout du second degré), «~$p$~» pour l'addition («~plus~») et «~$m$~» pour la soustraction («~minus~»). Nicolas Chuquet est le premier à utiliser les exposants pour noter les puissances de l'inconnue dans le \textit{Triparty en la science des nombres} (1484), notation reprise plus tard par Bombelli. Un pas décisif a été franchi par François Viète qui note les quantités inconnues par les voyelles $A$, $E$, $I$, $O$ et $U$ et les quantités connues par les consonnes. A noter qu'il n'a en revanche pas repris la notation en exposant de Chuquet (il notait par exemple «~$A\textrm{ quadr.}$~» pour «~$A^2$~»). Terminons cette brève fresque par Descartes qui a introduit la notation des puissances de l'inconnue par une lettre de la fin de l'alphabet $x$, $y$, $z$ affectée d'un exposant, utilisée actuellement.
+
+\subsection*{Correspondance entre les ruptures historiques et les difficultés potentielles dans le cadre du calcul littéral}
+
+L'histoire du calcul littéral nous montre qu'il y a eu beaucoup d'étapes conceptuelles à franchir avant d'aboutir au symbolisme algébrique moderne. Nous pouvons dénombrer\footnote{\textsc{Ministère de l'éducation nationale}. \textit{Utiliser le calcul littéral} [en ligne]. 2016. Disponible sur~: https://eduscol.education.fr/cid99696/ressources-maths-cycle-4.html (consulté le 18/10/2019).} quatre statuts de la lettre au cours du cycle 4~: celui de variable, d'indeterminée, d'inconnue et enfin de paramètre. Dans le cadre des exercices proposés de notre analyse, le statut de la lettre $a$ est clairement identifiable~: celui d'indéterminée, en ce qu'elle représente ici une valeur universelle (ici un nombre relatif). L'exercice demande des traductions d'expressions toujours vraies, la valeur de $a$ ne doit intervenir à aucun moment.
+
+\paragraph*{}
+
+Ce concept d'universalité de la valeur que symbolise la lettre se retrouve historiquement comme nous l'avons dit dès les \textit{Élements} d'Euclide. Dans ses propositions arithmétiques, les quantités universelles sont symbolisées par des longueurs de segments et notées $AB$, $AC$ \textit{etc}. Il y a donc ici une correspondance fondamentale entre un objet abstrait qui se veut universel et un objet concret (un segment de droite) qui est une grandeur. Toutefois, cette universalité se perd dès lors que l'on considère des nombres relatifs~: la correspondance précédemment décrite échoue car un entier négatif n'est pas une grandeur.
+Nous pouvons alors émettre une tentative d'explication sur une origine possible du TA 5 qui rappelons-le, consiste à modifier l'ordre d'une soustraction où intervient $a$. Si on admet qu'il y a chez l'élève l'utilisant une représentation de la quantité littérale $a$ comme un objet concret comme par exemple une distance ou un nombre de cubes, alors il est cohérent pour lui de considérer qu'une soustraction entre deux termes contenant $a$ doit donner un résultat positif (une distance est nécessairement positive, de même que toute grandeur). En somme, même si un élève lit la consigne «~$a$ désigne un nombre relatif~» et sait ce qu'est un relatif, il pourra être amené à vouloir utiliser le TA 5 s'il a préalablement établi une représentation erronnée de la lettre $a$. Le fait que le calcul relatif (dont l'apprentissage est, rappelons-le, du ressort du cycle 4) soit relativement récent pour cet élève est un argument en faveur de cette explication~: jusque-là, il pouvait établir des correspondances entre les entiers naturels et certains objets concrets (distances, cubes), mais cela n'est pas possible pour les relatifs. L'utilisation d'une indéterminée $a$ pourrait ainsi brouiller les pistes chez lui et il pourrait donc être amené à appliquer de nouveau ces représentations même si elles échouent dans ce cas.
+Pour Vergnaud, les schèmes sont des organisations de l'activité que nous utilisons en particulier afin de se confronter à des situations nouvelles. En effet, si un sujet est confronté à une nouvelle situation, c'est qu'il n'a pas de stratégie éprouvée pour la résoudre. Il va alors puiser dans ses schèmes qui ont été efficaces pour d'autres situations, toutefois ils peuvent conduire à un échec dans cette nouvelle situation~: ce que Vergnaud appelle des «~schèmes dangereux~»\footnote{\textsc{G Vergnaud}. Didactique professionnelle et didactique des disciplines. [22/11/2004] In~: Fondation maison des sciences de l'Homme. \textit{canal-u}. [95']. Disponible sur https://www.canal-u.tv/producteurs/fmsh (consulté le 17/10/2019)}.
+
+\paragraph*{}
+
+La nature du symbolisme est un problème qui a traversé l'histoire des mathématiques. Tantôt des points pour représenter les nombres indéterminés pour les Grecs, puis des notations pour les inconnues. Tout cela peut nous éclairer sur des problèmes d'identification de la nature de la lettre $a$ qui peuvent être à l'origine des TA 2 et 3. Pour rappel, ils correspondent respectivement à l'absorption des petites puissances de $a$ par les grandes et à l'absorption des grandes puissances de $a$ par les petites. En effet, dans ces exercices nous additionnons, multiplions et soustrayons des quantités, ici des nombres relatifs. Peut-être que chez certains élèves, il est alors cohérent de considérer que la réponse doit être un nombre et peut donc être représentée en un seul terme, de la même façon que les résultats des opérations $1+1$ ou $2\times 3$ peuvent être représentés en un seul terme. Chez ces élèves, la réponse $4a+1$ ne serait donc pas satisfaisante car la présence de l'addition indiquerait pour eux que $4a+1$ peut se représenter en une seule quantité~: le calcul n'est donc pas terminé de même que $1+1$ n'est pas une opération achevée. Selon cette hypothèse, nous voyons bien que c'est le statut de $a$ en tant qu'indéterminée qui n'est pas correctement assimilé par ces élèves.
+Remarquons d'ailleurs que toutes les réponses des copies 2 et 3 sont représentées à l'aide d'un seul terme. Ainsi, les TA 2 et TA 3 seraient des conséquences de cette conception du «~terme unique~». Nous pouvons maintenant nous interroger sur l'utilisation du TA 2 en particulier pour concourir à cette conception. Voici quelques éléments nous semblant pertinents.
+
+\begin{enumerate}[i)]
+\item Cette méthode de calcul fait intervenir les deux coefficients $q$ et $r$ (toutes les instances sont épuisées).
+\item Cette méthode de calcul fait intervenir l'addition qui est en effet l'opération demandée.
+\item Cette méthode de calcul pourrait faire intervenir une représentation de type «~les gros mangent les petits~» dont nous pouvons supposer que les élèves retrouvent dans beaucoup de cas de leur vie quotidienne, bien que cela soit plus spéculatif.
+\end{enumerate} 
+
+Cette conception du terme unique n'explique toutefois pas l'utilisation du TA 3 chez l'élève de la copie 1 dont les réponses peuvent contenir plusieurs termes. Nous y reviendrons dans la partie suivante.
+Ajoutons finalement que la consigne indique de «~simplifier et de réduire~». Sous l'angle du \textit{contrat didactique}, l'élève pourrait ainsi se sentir incité à donner la forme la plus contractée possible, ce qui jouerait le rôle de catalyseur et le conforterait dans sa conception du terme unique. Qu'y a-t-il en effet de plus simplifié et réduit qu'une réponse ne comportant qu'un unique terme~?
+
+\paragraph*{}
+
+En conclusion, l'éclairage historique peut donc nous inciter d'une part à envisager que l'élève du cycle 4 possède probablement des représentations des nombres en tant qu'objets qui ont du sens pour lui (notamment ici issus de la géométrie perceptive, à l'instar des mathématiciens Grecs), et qu'il peut injecter ces représentations dans le symbolisme $a$ qui est nouveau pour lui. Cette injection peut ou non être justifiée selon ces représentations et la nature du statut de $a$; et peut éventuellement échouer. D'autre part, cet éclairage historique nous invite à nous questionner sur le sens de la nature du symbole $a$ dans cet exercice pour l'élève. S'il a mal identifié le statut de $a$, cela peut l'amener à avoir une représentation erronnée du résultat à obtenir. Il pourrait ainsi utiliser des \tas faux.
+Ces deux difficultés constituent ainsi des potentiels \textit{obstacles épistémologiques} chez les élèves confrontés à cet execice à ce niveau de connaissances.
+Notons au passage que cela incite à regarder l'appartenance de $a$ à l'ensemble des relatifs d'une part, et le statut de $a$ en tant qu'indéterminée d'autre part, comme deux variables didactiques majeures dans cet exercice.
+
+\subsection*{Hypothèses concernant l'origine des TA 1, 3 et 4}
+
+L'éclairage historique ne semble pas pertinent ou du moins insuffisant pour envisager des explications sur l'origine de ces trois \tas. Nous allons pour ceux-là proposer brièvement des hypothèses sûrement plus spéculatives.
+
+\paragraph*{}
+
+Concernant l'origine du TA 1, nous pouvons soumettre l'hypothèse qu'un élève l'utilisant traduirait l'absence de signe devant la lettre comme un «~0~». Mais toutefois pas comme un 0 numérique, autrement l'élève de la copie 3 aurait réduit $a^2-9$ en $-9$ dans l'exercice 2.F ce qui n'est pas le cas puisqu'il l'a réduit en $-9a^2$. Il s'agirait plutôt d'un «~0~» traduisant le vide, l'absence de place~: il n'a pas de statut numérique mais d'autres quantités peuvent s'y loger, d'où il se traduit par un 0 (cette fois bien numérique) lors de l'addition des coefficients~: $a^2-9=(0-9)a^2=-9a^2$ (n'oublions pas qu'il utilise simultanément le TA 2). L'élève aurait donc du mal à interpréter l'absence de signe comme un 1.
+
+\paragraph*{}
+
+Interrogeons-nous maintenant sur l'origine du TA 3 dont nous avons expliqué qu'il ne relevait pas de la conception du terme unique chez l'élève de la copie 1. Cet élève considère donc qu'une multiplication de plusieurs $a$ donne toujours $a$ en réponse. Nous soumettons comme hypothèse que l'élève tente une factorisation par $a$ en dépit de l'absence d'addition~: il effectuerait ainsi l'opération $a\times...\times a=a\times(1\times...\times 1)=a$. Cette tentation de factoriser par $a$ pourrait être une conséquence d'une volonté de simplifier le plus possible~: le terme $a^2$ paraitrait ainsi pour cet élève comme une opération non achevée, la seule solution pour la simplifier étant pour lui d'établir une factorisation.
+
+\paragraph*{}
+
+Enfin, concernant l'origine du TA 4, il semble clair que le rôle du parenthésage n'est pas correctement assimilé par l'élève l'utilisant (celui de la copie 3). Il semblerait qu'il n'a pas bien saisi l'enjeu de la distributivité, qui énonce précisément une méthode pour pouvoir simplifier dans le cas où le calcul de l'intérieur de la parenthèse n'est pas aisé, \cad quand il y a une indéterminée.
+
+\section*{Proposition de remédiation}
+
+La remédiation des \tas peut passer par la proposition de \textit{situations-problèmes}. La situation-problème permet en effet de créer la surprise chez l'élève et un phénomène de conflit vis-à-vis de ses schèmes. Ses stratégies ne se révélant ainsi plus efficaces pour répondre à cette nouvelle situation, un déséquilibre s'instaure et une remise à jour des \tas qu'il utilise s'imposera. Enfin, il s'agit de proposer à l'élève une explication, une stratégie qui semble plus efficiente pour répondre à la nouvelle situation~: nous espérons ainsi un rééquilibre de ses schèmes. Nous proposons une construction de ces situations-problèmes en s'aidant des phases schématiques suivantes.
+
+\begin{enumerate}
+\item Rappeler les \textit{obstacles majeurs} qui peuvent expliquer l'utilisation des \tas. Avoir ces obstacles toujours en tête nous semble important car l'objectif est précisément d'amener l'élève à les franchir.
+\item Établir une \textit{vérification} qui servira à contrôler si l'élève utilise bien les \tas supposés à travers d'autres exemples que ceux proposés dans les exercices. Cela sert entre autres à se prémunir du biais de confirmation.
+\item Établir un \textit{déséquilibre} chez l'élève à l'aide d'une situation-problème tenant compte des obstacles épistémologiques identifiés.
+\item Établir un \textit{rééquilibre} dans les stratégies de l'élève en proposant une alternative qui n'échoue pas dans cette situation-problème.
+\item Établir une \textit{confirmation} que l'élève a bien assimilé cette nouvelle stratégie en lui proposant une nouvelle situation, afin de vérifier s'il utilise des schèmes plus adaptés.
+\end{enumerate}
+
+Illustrons cela pour le cas du \ta 2, celui qui est de loin le plus représenté parmi les réponses des trois élèves.
+
+\begin{description}
+\item[Obstacles majeurs] Nous avons proposé que les origines du TA 2 peuvent être liées à la conception du terme unique; elle-même pouvant provenir d'une mauvaise identification du statut du symbole $a$.
+\item[Phase de vérification] Nous pouvons inviter l'élève à réduire l'expression $2a^2+3a+4$ et $2a+100$ par exemple. Nous nous attendons aux réponses $9a^2$ et $102a$ respectivement s'il utilise véritablement le TA 2. Notons que cet exemple est proposé pour éviter qu'il n'utilise simultanément plusieurs \tas~: ainsi il n'y a pas de soustraction (bloque le TA 5) et pas d'absence de symbole devant les coefficients (bloque le TA 1). En parallèle, nous pouvons inviter l'élève à commenter son raisonnement afin d'identifier sa méthode opératoire.
+\item[Phase de déséquilibre] Bien entendu, nous supposons ici que la phase de vérification a été positive~: l'élève semble à ce stade réellement utiliser le TA 2. Puisque la nature du symbole $a$ pose problème, nous allons ramener l'élève à une situation plus familière~: puisque les égalités doivent être vraies quelle que soit la valeur de $a$, alors nous pouvons l'inviter à tester son hypothèse pour une certaine valeur de $a$. Dans le cas de $2a+100=102a$ qu'il a écrit auparavant, invitons-le à remplacer $a$ par $10$ afin de voir si l'égalité est vérifiée. Il devrait en déduire, si son hypothèse est vraie, que $120=1020$. Puisqu'il s'agit de créer la surprise chez l'élève, il nous parait pertinent qu'il trouve une égalité la plus absurde possible~: cela n'a pas le même effet de trouver $1=2$ (petite différence) ou bien $120=1020$ (grande différence). Même si mathématiquement ces deux dernières propositions sont pareillement fausses (il n'y a pas de degré dans l'erreur en mathématiques), nous pensons que la seconde incite plus probablement à la surprise. Il est important ici que l'enseignant reste le plus neutre possible, que l'élève constate lui-même que son mode opératoire ne semble pas fonctionnel. Nous pourrions également lui demander de tester son hypothèse pour une autre valeur de $a$, cette fois négative (pour qu'il ne perde jamais de vue que $a$ est un relatif).
+\item[Phase de rééquilibre] Il nous semble d'abord pertinent que l'élève dépasse sa conception du terme unique. Il faut lui expliquer en quoi l'expression $2a+1$ par exemple n'est pas simplifiable, malgré la présence d'une addition, et ce en réintroduisant le concept d'indéterminée~: les égalités doivent être vérifiées pour tout $a$. Nous pouvons lui expliquer aussi la différence entre $a$ et $a^2$ (ce qui serait, pourquoi pas, l'occasion de revenir sur le TA 1), en illustrant par exemple avec des carrés empilés (en étant très vigilants sur une possible résurgence de la représentation de $a$ en tant que grandeur, qui peut mener comme nous l'avons vu à l'utilisation du TA 5). $a^2$ n'absorbe pas $a$ lorsqu'ils s'additonnent~: nous pouvons juste dire qu'ils se cumulent. $a^2$ et $a$ n'ayant pas les mêmes dimensions, tenter de simplifier $a^2+a$ mène à une impasse~: l'expression est réduite. Nous pouvons l'inviter à l'avenir à remplacer $a$ par des valeurs simples en guise de vérification (en précisant que cela n'est toutefois pas une preuve).
+\item[Phase de confirmation] Nous pourrions présenter à l'élève une liste d'expressions et l'inviter à dire si selon lui elles sont simplifiées et pourquoi (cette dernière interrogation permet de contrôler la compréhension de l'élève et d'identifier des points de blocages persistants), et si non, lui demander de les simplifier. Une telle liste pourrait être $\{4a^2+1; 2a+5a-4; 2a^2+5a+1;8a^2+10a+2a^2+4\}$ par exemple.
+\end{description}
+
+\section*{Pour aller plus loin}
+
+Chercher à analyser ces productions d'élèves permettent de se rendre compte de la richesse des outils didactiques proposés par les chercheurs. Nous pouvons cependant pousser bien plus loin notre analyse. Voici quelques pistes nous paraissant pertinentes pour approfondir le sujet.
+
+\begin{itemize}
+\item Nous avons effectué une approche historique du calcul littéral sous l'angle du symbolisme. Nous aurions également pu interroger les ruptures épistémologiques ayant jalonné le concept de nombre relatif, puisqu'il s'agit d'un concept important dans ces exercices. Selon Vergnaud, il y a eu en effet diverses difficultés conceptuelles avant d'aboutir à une adoption du concept dans la communauté mathématique. Il cite à titre d'exemple des chercheurs de l'École Polytechnique qui au dix-neuvième siècle refusaient encore de considérer les nombres relatifs comme des nombres, associant ces derniers aux grandeurs; alors que le concept a été inventé selon lui au début du dix-septième siècle.
+
+\item Nous pourrions, pour bénéficier de l'orientation d'autres domaines, interroger les orientations psycho-génétiques et sociales afin d'établir d'autres hypothèses sur l'origine de l'utilisation des théorèmes-en-acte comme le suggère Astolfi; bien que le cadre soit peut-être trop restrictif pour cela (nous ne disposons que de peu de données finalement).
+
+\item Toujours concernant l'origine des \tas, nous aurions pu interroger les représentations des élèves concernant les structures multiplicatives et soustractives. Vergnaud souligne en particulier que les structures soustractives peuvent constituer des obstacles plus persistants dans le temps que les structures multiplicatives chez les élèves. Or dans le cadre du calcul littéral, ces structures sont clairement essentielles. Le concept d'égalité entre deux membres pourrait également être exploré.
+
+\item Enfin, dans l'objectif de la remédiation, une méthode plus sytématique que celle que nous avons proposée pourrait consister à s'appuyer sur la théorie des \textit{objectifs-obstacles} développée par J.-L Martinand et rapportée par Astolfi et Develay dans \textit{La didactique des sciences}. En bref, elle consiste à caractériser les objectifs correspondant au progrès intellectuel que représente le franchissement des obstacles épistémologiques du concept en jeu. De cette manière, rapporte Astolfi, nous pouvons construire des dispositifs cohérents avec les objectifs établis par cette analyse, et proposer des procédures de remédiation efficaces.
+\end{itemize}
+
+\newpage
+
+\section*{Bibliographie}
+
+\begin{itemize}
+\item \textsc{J-P Astolfi, M Develay}. \textit{La didactique des sciences}. 7e édition. puf, 2017
+\item \textsc{J Friberg}. \textit{A remarkable collection of babylonian mathematical texts}. Springer, 2007
+\item \textsc{C Houzel}. «~Équations algébriques~», in~: \textit{Mathématiques en méditerranée}. Édisud, 1988
+\item \textsc{Ministère de l'éducation nationale}. \textit{Utiliser le calcul littéral} [en ligne]. 2016. Disponible sur~: https://eduscol.education.fr/cid99696/ressources-maths-cycle-4.html (consulté le 18/10/2019)
+\item \textsc{G Vergnaud}. Didactique professionnelle et didactique des disciplines. [22/11/2004] In~: Fondation maison des sciences de l'Homme. \textit{canal-u}. [95']. Disponible sur https://www.canal-u.tv/producteurs/fmsh (consulté le 17/10/2019)
+\item G. \textsc{Vergnaud} \textit{et al}. «~\textsc{iv}. La psychologie de l'éducation~», in~: \textit{Les sciences de l’éducation}. La Découverte, 2012.
+\end{itemize}
+
+
+
+
+\end{document}
